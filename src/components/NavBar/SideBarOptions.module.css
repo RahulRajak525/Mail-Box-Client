@@ -9,7 +9,8 @@
 }
 .sidebarOptions:hover {
   cursor: pointer;
-  background-color: whitesmoke;
+  background-color: #f6f8fa;
+  box-shadow: 2px 3px 5px #9cbeec;
 }
 
 .sidebarOptions svg {
@@ -25,14 +26,7 @@
 }
 .sidebarOptions p {
   opacity: 1;
-  color: rgb(94, 94, 94);
-  font-size: 12px;
+  color: rgb(2, 2, 2);
+  font-size: 15px;
   font-weight: bold;
-}
-.sidebarOptions h4:focus {
-     color: brown;
-     font-size:20px;
-}
-:p {
-  background-color: brown;
 }

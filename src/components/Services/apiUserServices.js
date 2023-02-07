@@ -83,9 +83,32 @@ class apiUserService {
     }
   };
 
+  resetPassword = async (data) => {
+    const response = await fetch(
+      this.BASE_URL + "sendOobCode?key=AIzaSyArMGv0B8W1fNrFkSE2cQxnyLLbg72iOaM",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          requestType: "PASSWORD_RESET",
+          email: data.userEmail,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      toast.success("A link is send to your email, please check!");
+      return data;
+    } else {
+      const data = await response.json();
+      console.log(data);
+    }
+  };
+
   getUserData = async () => {
     const idToken = localStorage.getItem("idToken");
-    // console.log('3', idToken)
     const response = await fetch(
       this.BASE_URL + "lookup?key=AIzaSyArMGv0B8W1fNrFkSE2cQxnyLLbg72iOaM",
       {
@@ -101,6 +124,9 @@ class apiUserService {
     if (response.ok) {
       const data = await response.json();
       return data;
+    } else {
+      const data = await response.json();
+      console.log(data);
     }
   };
 }

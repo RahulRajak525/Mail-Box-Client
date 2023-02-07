@@ -10,10 +10,8 @@ class apiEmailService {
     console.log("eamil of receiver", credentials);
     const uniqueId = Math.floor(Math.random() * 1000000);
     const mailDate = new Date();
-    console.log(mailDate);
     const receiverArray = credentials.receiverEmail.split(/[.|@]+/);
     const receiverUserId = receiverArray[0];
-    console.log(receiverUserId);
 
     const receiverResponse = await fetch(
       this.BASE_URL + receiverUserId.toLowerCase() + "/Inbox/.json",
@@ -43,7 +41,6 @@ class apiEmailService {
     if (receiverResponse.ok) {
       const data = await receiverResponse.json();
       toast.success("Email Sent successfully!");
-      console.log(data);
       return data;
     } else {
       const data2 = await receiverResponse.json();
@@ -55,7 +52,6 @@ class apiEmailService {
     console.log("eamil of Sender", credentials);
     const uniqueId = Math.floor(Math.random() * 1000000);
     const mailDate = new Date();
-    console.log(mailDate.getMonth() + 1);
     const senderArray = credentials.senderEmail.split(/[.|@]+/);
     const senderUserId = senderArray[0];
 
@@ -86,8 +82,6 @@ class apiEmailService {
     );
     if (receiverResponse.ok) {
       const data = await receiverResponse.json();
-      // toast.success("Email Sent successfully!");
-      console.log(data);
       return data;
     } else {
       const data2 = await receiverResponse.json();
@@ -108,12 +102,11 @@ class apiEmailService {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       return data;
     } else {
       const data2 = await response.json();
       const error = data2.error.message;
-      console.log(error);
+      toast.error(error);
     }
   };
 
@@ -122,7 +115,6 @@ class apiEmailService {
     const emailArray = mailInfo.senderEmail.split(/[.|@]+/);
     const userEmailId = emailArray[0];
     const uniqueName = mailInfo.uniqueName;
-    console.log(userEmailId);
     const response = await fetch(
       this.BASE_URL + userEmailId + "/Outbox/" + uniqueName + "/.json",
       {
@@ -134,7 +126,6 @@ class apiEmailService {
     if (response.ok) {
       const data = await response.json();
       toast.success("Email Deleted.");
-      console.log("4", data);
       return data;
     } else {
       const data = await response.json();
@@ -147,7 +138,6 @@ class apiEmailService {
     const emailArray = mailInfo.receiverEmail.split(/[.|@]+/);
     const userEmailId = emailArray[0];
     const uniqueName = mailInfo.uniqueName;
-    console.log(userEmailId);
     const response = await fetch(
       this.BASE_URL + userEmailId + "/Inbox/" + uniqueName + "/.json",
       {
@@ -166,9 +156,7 @@ class apiEmailService {
   };
 
   updateMailReadStatus = async (mailInfo) => {
-    console.log("update read mail", 3);
     const emailArray = mailInfo.receiverEmail.split(/[.|@]+/);
-    console.log("aorfhsioergaoergsriotwroit skbstr ",mailInfo.senderEmail);
     const mailDate = new Date();
     const userEmailId = emailArray[0];
     const uniqueName = mailInfo.uniqueName;
@@ -201,25 +189,7 @@ class apiEmailService {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("update read mail 4", data);
       return data;
-      //  {
-      //   senderEmail: mailInfo.senderEmail,
-      //   emailSubject: mailInfo.emailSubject,
-      //   emailContent: mailInfo.emailContent,
-      //   recieverEmail: mailInfo.recieverEmail,
-      //   uniqueId: mailInfo.uniqueId,
-      //   uniqueName: mailInfo.uniqueName,
-      //   mailReadStatus: true,
-      //   dateOfMail: {
-      //     year: mailDate.getFullYear(),
-      //     month: mailDate.getMonth()+1,
-      //     day: mailDate.getDate(),
-      //     hours: mailDate.getHours(),
-      //     minute: mailDate.getMinutes(),
-      //     second: mailDate.getSeconds(),
-      //   },
-      // };
     } else {
       const data = await response.json();
       toast.error(data.error.message);

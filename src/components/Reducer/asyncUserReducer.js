@@ -22,6 +22,15 @@ export const updateProfileaction = createAsyncThunk(
     return response;
   }
 );
+export const resetPasswordAction = createAsyncThunk(
+  "resetPasswordAction",
+  async (data, thunkAPI) => {
+    const response = await ApiUserService.resetPassword(data);
+    return response;
+  }
+);
+
+
 export const getUserDataAction = createAsyncThunk(
   "getUserDataAction",
   async (data, thunkAPI) => {

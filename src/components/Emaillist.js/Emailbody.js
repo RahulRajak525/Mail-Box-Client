@@ -18,13 +18,11 @@ import {
 
 const Emailbody = () => {
   const Inbox = useSelector((state) => state.email.Inbox);
-  console.log(Inbox);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const openEmailDetail = (row) => {
     dispatch(emailAction.openInboxEmailDetail(row));
     if (row.mailReadStatus === false) {
-      console.log(row.mailReadStatus);
       dispatch(updateReadMailAction(row));
       setTimeout(() => {
         const senderEmail = localStorage.getItem("email");
@@ -35,9 +33,11 @@ const Emailbody = () => {
   };
 
   const deleteButtonClickHandler = (row) => {
-    console.log(row);
-    dispatch(deleteMailFromInboxAction(row));
-    return;
+    if (window.confirm("It will deleted permanantely.")) {
+      dispatch(deleteMailFromInboxAction(row));
+    } else {
+      return;
+    }
   };
   return (
     <div>
@@ -48,7 +48,8 @@ const Emailbody = () => {
               <div className={classes.emailbody__left}>
                 <Checkbox />
                 <StarBorderIcon />
-                <LabelOutlinedIcon />from
+                <LabelOutlinedIcon />
+                from
               </div>
               <div
                 className={classes.emailbody__middle}

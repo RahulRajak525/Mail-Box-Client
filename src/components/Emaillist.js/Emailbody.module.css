@@ -5,12 +5,11 @@
   padding: 0px 10px;
   height: 40px;
   color: #202124;
-  background: #f2f6fc;
 }
 .emailbody:hover {
-  /* box-shadow: 2px 2px 5px whitesmoke; */
+  box-shadow: 2px 3px 5px #9cbeec;
   cursor: pointer;
-  background-color: #c2dbff;
+  background-color: #f6f8fa;
 }
 .emailbody__left {
   display: flex;

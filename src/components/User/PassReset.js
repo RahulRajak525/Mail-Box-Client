@@ -2,8 +2,9 @@ import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { resetPasswordAction } from "../Slices/asyncUserReducer";
-import classes from "./SignIn.module.css";
+import { toast } from "react-toastify";
+import { resetPasswordAction } from "../Reducer/asyncUserReducer";
+import classes from "./PassReset.module.css";
 
 const PassReset = () => {
   const dispatch = useDispatch();
@@ -22,11 +23,16 @@ const PassReset = () => {
   };
 
   const sendLinkButtonClickHandler = () => {
-    // dispatch(
-    //   resetPasswordAction({
-    //     userEmail: userEmail,
-    //   })
-    // );
+    if (!userEmail) {
+      toast.warn("Please provide email");
+      return;
+    } else {
+      dispatch(
+        resetPasswordAction({
+          userEmail: userEmail,
+        })
+      );
+    }
     setUserEmail("");
     navigate("/signIn");
   };
@@ -35,46 +41,41 @@ const PassReset = () => {
     navigate("/signIn");
   };
   return (
-    <div className={classes.signIn}>
-      <div className={classes.grid}>
-        <Grid>
-          <Paper elevation={20} style={paperStyle}>
-            <Grid align="center">
-              <h4>Enter the email with which you have registered</h4>
-            </Grid>
-            <TextField
-              style={textfield}
-              required
-              id="outlined-textarea"
-              label="Email"
-              placeholder="e.g. elon@gmail.com"
-              onChange={userEmailChangeHandler}
-              value={userEmail}
-            />
+    <div className={classes.bg}>
+      <div className={classes.signIn}>
+        <div className={classes.grid}>
+          <Grid>
+            <Paper elevation={20} style={paperStyle}>
+              <Grid align="center">
+                <h4>Enter the email with which you have registered</h4>
+              </Grid>
+              <TextField
+                style={textfield}
+                required
+                id="outlined-textarea"
+                label="Email"
+                placeholder="e.g. elon@gmail.com"
+                onChange={userEmailChangeHandler}
+                value={userEmail}
+              />
 
-            <Button
-              type="submit"
-              color="primary"
-              variant="contained"
-              fullWidth
-              style={btnStyle}
-              onClick={sendLinkButtonClickHandler}
-            >
-              Send Link
-            </Button>
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                fullWidth
+                style={btnStyle}
+                onClick={sendLinkButtonClickHandler}
+              >
+                Send Link
+              </Button>
 
-            <Typography fullWidth>
-              Alredy a user ?<Button onClick={goToSignInPage}>Sign In</Button>
-            </Typography>
-          </Paper>
-        </Grid>
-      </div>
-      <div className={classes.image}>
-        <img
-          src="https://github.com/RahulRajak525/Images/blob/main/1.jpg?raw=true"
-          alt="Rahul Rajak"
-          width="100%"
-        />
+              <Typography fullWidth>
+                Already an user?<Button onClick={goToSignInPage}>Sign In</Button>
+              </Typography>
+            </Paper>
+          </Grid>
+        </div>
       </div>
     </div>
   );

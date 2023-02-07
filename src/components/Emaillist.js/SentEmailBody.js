@@ -9,25 +9,24 @@ import { emailAction } from "../Slices/emailSlice";
 import { IconButton, Tooltip } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { red } from "@mui/material/colors";
-import {
-  deleteMailFromOutboxAction,
-} from "../Reducer/asyncEmailReducer";
+import { deleteMailFromOutboxAction } from "../Reducer/asyncEmailReducer";
 
 const SentEmailBody = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sentEmail = useSelector((state) => state.email.Outbox);
   const openSentEmailDetail = (row) => {
-    dispatch(
-      emailAction.openOutboxEmailDetail(row)
-    );
+    dispatch(emailAction.openOutboxEmailDetail(row));
     navigate("/sentEmailDetails");
   };
 
   const deleteButtonClickHandler = (row) => {
     console.log(row);
-    dispatch(deleteMailFromOutboxAction(row));
-    return;
+    if (window.confirm("It will deleted permanantely.")) {
+      dispatch(deleteMailFromOutboxAction(row));
+    } else {
+      return;
+    }
   };
   return (
     <div>
@@ -42,9 +41,7 @@ const SentEmailBody = () => {
               </div>
               <div
                 className={classes.emailbody__middle}
-                onClick={() =>
-                  openSentEmailDetail(row)
-                }
+                onClick={() => openSentEmailDetail(row)}
               >
                 <div className={classes.emailbody__middle__message}>
                   <h4>{row.receiverEmail}</h4>
@@ -67,7 +64,9 @@ const SentEmailBody = () => {
                   </IconButton>
                 </Tooltip>
               </div>
-              <div className={classes.time}>{`${row.dateOfMail.hours}:${row.dateOfMail.minute}:${row.dateOfMail.second}`}</div>
+              <div
+                className={classes.time}
+              >{`${row.dateOfMail.hours}:${row.dateOfMail.minute}:${row.dateOfMail.second}`}</div>
             </div>
           </div>
         ))}

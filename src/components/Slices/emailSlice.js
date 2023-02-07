@@ -1,3 +1,4 @@
+import { SatelliteAlt } from "@mui/icons-material";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   deleteEmailAction,
@@ -16,6 +17,8 @@ const initialState = {
   outboxEmail: null,
   Inbox: [],
   Outbox: [],
+  isInboxActive: false,
+  isOutboxActive: false,
 };
 const emailSlice = createSlice({
   name: "email",
@@ -27,18 +30,23 @@ const emailSlice = createSlice({
     openOutboxEmailDetail: (state, action) => {
       state.outboxEmail = action.payload;
     },
+    inboxActive(state, action) {
+      state.isInboxActive = true;
+      state.isOutboxActive = false;
+    },
+    outboxActive(state, action) {
+      state.isOutboxActive = true;
+      state.isInboxActive = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(sendEmailAction.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.changed = true;
     });
     builder.addCase(getEmailDataAction.fulfilled, (state, action) => {
       state.changed = false;
       const outboxEmailList = action.payload.outboxEmailList;
-      console.log(outboxEmailList);
       const inboxEmailList = action.payload.inboxEmailList;
-      console.log(inboxEmailList);
       state.Outbox = outboxEmailList;
       state.Inbox = inboxEmailList;
     });
@@ -49,17 +57,7 @@ const emailSlice = createSlice({
     builder.addCase(deleteMailFromOutboxAction.fulfilled, (state, action) => {
       state.changed = true;
     });
-    builder.addCase(updateReadMailAction.fulfilled, (state, action) => {
-      //  state.Inbox = action.payload;
-      // const mailToBeUpdated = action.payload;
-      // state.changed = true;
-      // console.log("update read mail : 6", mailToBeUpdated);
-      // const updatedList = state.Inbox.filter(
-      //   (mail) => mailToBeUpdated.uniqueName !== mail.uniqueName
-      // );
-      // state.Inbox = updatedList;
-      // state.Inbox.push(mailToBeUpdated);
-    });
+    builder.addCase(updateReadMailAction.fulfilled, (state, action) => {});
   },
 });
 

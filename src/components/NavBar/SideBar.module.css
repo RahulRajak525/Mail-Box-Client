@@ -46,4 +46,18 @@
   align-items: center;
 }
 
+.inboxEmail {
+  background-color: #f6f8fa;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 2px 3px 4px #9cbeec;
+  width: 230px;
+}
 
+.outboxEmail {
+  background-color: #f6f8fa;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 2px 3px 4px #9cbeec;
+  width: 230px;
+}

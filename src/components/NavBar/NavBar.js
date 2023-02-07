@@ -5,54 +5,30 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
-import CalculateIcon from "@mui/icons-material/Calculate";
 import { Link, useNavigate } from "react-router-dom";
-import { Avatar, Button, Tooltip } from "@mui/material";
+import { Avatar, Tooltip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectUserDatails,
-  userAction,
-  userActions,
-} from "../Slices/userSlice";
-import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
-// import { CSVLink } from "react-csv";
-import { createTheme, styled } from "@mui/material/styles";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import Stack from "@mui/material/Stack";
-import { alpha } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
+import { userAction } from "../Slices/userSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userDetails = useSelector((state) => state.user.userDetails);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  console.log(userDetails);
-  const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [darkMode, setDarkMode] = useState(false);
   const linkStyle = {
     textDecoration: "none",
     color: "white",
     marginRight: "15px",
+    float: "right",
   };
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-  // sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -69,7 +45,12 @@ const NavBar = () => {
             <Avatar
               alt="Remy Sharp"
               src="gmail.jpg"
-              sx={{ width: 70, height: 50, background: "none" }}
+              sx={{
+                display: { xs: "none", md: "flex" },
+                mr: 1,
+                width: 70,
+                height: 50,
+              }}
               variant="rounded"
             />
             <Link style={linkStyle} to="/">
@@ -100,18 +81,9 @@ const NavBar = () => {
                 </Link>
               )}
 
-              {!isLoggedIn ? (
+              {!isLoggedIn && (
                 <Link to="/signIn" style={linkStyle}>
                   Sign In
-                </Link>
-              ) : (
-                <Link
-                  onClick={() => {
-                    dispatch(logOutClickHandler());
-                  }}
-                  style={linkStyle}
-                >
-                  LogOut
                 </Link>
               )}
             </Box>
@@ -142,24 +114,21 @@ const NavBar = () => {
                   onClose={handleCloseUserMenu}
                 >
                   <MenuItem>
-                    <Typography>
-                      <Link
-                        style={{
-                          textDecoration: "none",
-                          // color: "Highlight",
-                          fontWeight: "bolder",
-                        }}
-                        to="/profileUpdate"
-                      >
-                        Profile Update
-                      </Link>
-                    </Typography>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        fontWeight: "bolder",
+                      }}
+                      to="/profileUpdate"
+                    >
+                      Profile Update
+                    </Link>
                   </MenuItem>
                   <MenuItem>
                     <Link
                       style={{
                         textDecoration: "none",
-                        // color: "Highlight",
+
                         fontWeight: "bolder",
                       }}
                       to="/userProfile"
@@ -171,23 +140,28 @@ const NavBar = () => {
                     <Link
                       style={{
                         textDecoration: "none",
-                        // color: "Highlight",
+
+                        fontWeight: "bolder",
+                      }}
+                      to="/passReset"
+                    >
+                      Password Reset
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+
                         fontWeight: "bolder",
                       }}
                       onClick={logOutClickHandler}
+                      to="/"
                     >
                       LogOut
                     </Link>
                   </MenuItem>
                 </Menu>
-
-                {/* <FormControlLabel
-                  control={<MaterialUISwitch sx={{ m: 1 }} />}
-                  onChange={() => {
-                    changeHandler();
-                  }}
-                  checked
-                /> */}
               </Box>
             )}
           </Toolbar>

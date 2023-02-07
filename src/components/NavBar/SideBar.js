@@ -44,12 +44,15 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import { useDispatch, useSelector } from "react-redux";
 import { userAction } from "../Slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { emailAction } from "../Slices/emailSlice";
 
 const SideBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inBoxMails = useSelector((state) => state.email.Inbox);
   const inOutboxEmails = useSelector((state) => state.email.Outbox);
+  const inbox = useSelector((state) => state.email.isInboxActive);
+  const outbox = useSelector((state) => state.email.isOutboxActive);
   var count = 0;
   for (let i = 0; i < inBoxMails.length; i++) {
     if (inBoxMails[i].mailReadStatus === false) {
@@ -81,9 +84,11 @@ const SideBar = () => {
   };
   const goToSentEmailBody = () => {
     navigate("/sentEmail");
+    dispatch(emailAction.outboxActive());
   };
   const goToInbox = () => {
     navigate("/emailBox");
+    dispatch(emailAction.inboxActive());
   };
 
   return (
@@ -97,15 +102,14 @@ const SideBar = () => {
       >
         Compose
       </Button>
-      <div onClick={goToInbox} className={classes.inboxEmail}>
-        <SideBarOptions
-          Icon={InboxIcon}
-          title="Inbox"
-          number={count}
-          isActive={true}
-        />
-      </div>
-
+        <div onClick={goToInbox} className={`${inbox && classes.inboxEmail}`}>
+          <SideBarOptions
+            Icon={InboxIcon}
+            title="Inbox"
+            number={count}
+            isActive={true}
+          />
+        </div>
       <SideBarOptions Icon={StarRateIcon} title={"Starred"} number={0} />
       <SideBarOptions Icon={WatchLaterIcon} title={"Snoozed"} number={0} />
       <SideBarOptions
@@ -113,14 +117,17 @@ const SideBar = () => {
         title={"Important"}
         number={0}
       />
-      <div onClick={goToSentEmailBody}>
+      <div
+        onClick={goToSentEmailBody}
+        className={`${outbox && classes.outboxEmail}`}
+      >
         <SideBarOptions Icon={SendIcon} title={"Sent"} number={sentEmail} />
       </div>
       <SideBarOptions Icon={DraftsIcon} title={"Drafts"} number={0} />
       <SideBarOptions Icon={LabelIcon} title={"Category"} number={0} />
       <SideBarOptions Icon={DeleteIcon} title={"[Map]/Trash"} number={0} />
-      <SideBarOptions Icon={FindInPageIcon} title={"Documents"}  />
-      <SideBarOptions Icon={ExpandMoreIcon} title={"More"}  />
+      <SideBarOptions Icon={FindInPageIcon} title={"Documents"} />
+      <SideBarOptions Icon={ExpandMoreIcon} title={"More"} />
       <hr />
       <h3 className={classes.sidebarOptions__heading}>Meet</h3>
       <SideBarOptions Icon={VideoChatIcon} title={"New Meeting"} />

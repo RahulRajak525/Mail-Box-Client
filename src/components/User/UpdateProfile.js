@@ -4,8 +4,11 @@ import LanguageIcon from "@mui/icons-material/Language";
 import { useDispatch } from "react-redux";
 // import { updateProfileAction } from "../Slices/asyncUserReducer";
 import { useNavigate } from "react-router-dom";
-import classes from "./UpdateProfile.module.css"
-import { getUserDataAction, updateProfileaction } from "../Reducer/asyncUserReducer";
+import classes from "./UpdateProfile.module.css";
+import {
+  getUserDataAction,
+  updateProfileaction,
+} from "../Reducer/asyncUserReducer";
 const UpdateProfile = () => {
   const paperStyle = {
     padding: 20,
@@ -39,9 +42,10 @@ const UpdateProfile = () => {
           photoUrl: photoUrl,
         })
       );
-      setTimeout(()=>{
-        dispatch(getUserDataAction())
-      },800)
+      setTimeout(() => {
+        dispatch(getUserDataAction());
+        navigate("/userProfile");
+      }, 800);
     }
     setUserName("");
     setPhotoUrl("");
@@ -97,9 +101,9 @@ const UpdateProfile = () => {
           </Paper>
         </Grid>
       </div>
-      <div className={classes.image}>
+      {/* <div className={classes.image}>
         <img src="update.jpg" width="100%" />
-      </div>
+      </div> */}
     </div>
   );
 };

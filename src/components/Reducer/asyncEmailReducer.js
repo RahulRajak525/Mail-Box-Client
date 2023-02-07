@@ -4,10 +4,8 @@ import { ApiEmailService } from "../Services/apiEmailServices";
 export const sendEmailAction = createAsyncThunk(
   "sendEmailAction",
   async (credentials, thunkAPI) => {
-    console.log(credentials);
     const outboxResponse = await ApiEmailService.sendEmailReceiver(credentials);
     const inboxResponse = await ApiEmailService.sendEmailSender(credentials);
-    console.log("20", response);
     const response = {
       outboxResponse: outboxResponse,
       inboxResponse: inboxResponse,
@@ -20,9 +18,7 @@ export const sendEmailAction = createAsyncThunk(
 export const deleteMailFromOutboxAction = createAsyncThunk(
   "deleteMailFromOutboxAction",
   async (mailInfo, thunkAPI) => {
-    console.log("2");
     const outboxResponse = await ApiEmailService.deleteMailFromOutbox(mailInfo);
-    console.log("5", outboxResponse);
     return mailInfo;
   }
 );
@@ -30,9 +26,7 @@ export const deleteMailFromOutboxAction = createAsyncThunk(
 export const deleteMailFromInboxAction = createAsyncThunk(
   "deleteMailFromInboxAction",
   async (mailInfo, thunkAPI) => {
-    console.log("2");
     const inboxResponse = await ApiEmailService.deleteMailFromInbox(mailInfo);
-    console.log("5", inboxResponse);
     return mailInfo;
   }
 );
@@ -42,7 +36,6 @@ export const getEmailDataAction = createAsyncThunk(
   async (senderEmail, thunkAPI) => {
     const response = await ApiEmailService.getEmailData(senderEmail);
     const outBoxData = response.Outbox;
-    console.log(outBoxData);
 
     const outboxEmailList = [];
     for (const key in outBoxData) {
@@ -60,7 +53,6 @@ export const getEmailDataAction = createAsyncThunk(
     }
 
     const inboxData = response.Inbox;
-    console.log(inboxData);
     const inboxEmailList = [];
     for (const key in inboxData) {
       const newMail = inboxData[key];
@@ -86,12 +78,9 @@ export const getEmailDataAction = createAsyncThunk(
 export const updateReadMailAction = createAsyncThunk(
   "updateReadMailAction",
   async (mailInfo, thunkAPI) => {
-    console.log("update read mail : 2");
     const changedReadStatus = await ApiEmailService.updateMailReadStatus(
       mailInfo
     );
-    console.log("update read mail : 5");
-    console.log(changedReadStatus);
     return changedReadStatus;
   }
 );

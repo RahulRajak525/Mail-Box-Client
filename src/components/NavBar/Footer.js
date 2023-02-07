@@ -28,14 +28,9 @@ const Footer = () => {
 
   return (
     <AppBar
-      // sx={{ position: "relative", top: "8rem" }}
       position="sticky"
-      color="inherit"
-    //   sx={{ top: "50px", bottomMargin: "25px" }}
     >
       <Toolbar>
-        {/* <Box sx={{ flexGrow: 2 }} /> */}
-        {/* <Box sx={{ display: { xs: "none", md: "flex", align: "center" } }}> */}
 
         <Box
           sx={{
@@ -43,17 +38,17 @@ const Footer = () => {
             alignItems: "center",
             margin: "auto",
             flexDirection: "column",
+            marginTop:"25px"
           }}
         >
           <Typography
             variant="h6"
-            noWrap
             component="div"
             color="Secondary"
-            mx={2}
           >
-            Contact me
+            Contact me : 7355042995
           </Typography>
+           rahulrajak525@gmail.com
           <Box>
             <IconButton
               size="large"
@@ -86,7 +81,7 @@ const Footer = () => {
               <FacebookIcon />
             </IconButton>
           </Box>
-          <Typography noWrap component="div" variant="h7">
+          <Typography  component="div" variant="h7">
             @ All Right Reserved
           </Typography>
         </Box>

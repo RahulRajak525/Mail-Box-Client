@@ -3,18 +3,17 @@
   flex-direction: column;
   margin: auto;
   align-items: center;
-}
-.image {
   position: relative;
-  z-index: -1;
-  /* top: -29rem; */
-  display: flex;
-  align-items: center;
+  background-color: whitesmoke;
+  height: 100vh;
+  background-color: rgb(7, 44, 75);
 }
+
 
 .grid {
   display: flex;
   justify-content: center;
   position: relative;
   top: 8rem;
+  
 }

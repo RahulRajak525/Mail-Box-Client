@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { signUpAction } from "../Reducer/asyncUserReducer";
 import classes from "./SignUp.module.css";
+// import "./SignUp.module.css";
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const SignUp = () => {
   const avatarStyle = { backgroundColor: "#06cd83" };
   const passStyle = { margin: "10px auto " };
   const btnStyle = { margin: "8px 0 " };
-  const textfield = { width: "100%", margin: "5px" };
+  const textfield = { width: "100%", marginTop: "20px" };
   const [showPassword, setShowPassword] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,14 +55,13 @@ const SignUp = () => {
       toast.warn("All Fields are mandatory");
       return;
     } else {
-      console.log("1", userEmail);
       dispatch(
         signUpAction({
           userEmail: userEmail,
           password: password,
         })
       );
-      // navigate("/");
+      navigate("/signIn");
     }
 
     setUserEmail("");
@@ -72,72 +72,67 @@ const SignUp = () => {
     navigate("/signIn");
   };
   return (
-    <div className={classes.signUp}>
-      <div className={classes.grid}>
-        <Grid>
-          <Paper elevation={20} style={paperStyle}>
-            <Grid align="center">
-              <Avatar style={avatarStyle}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <h2>Sign Up</h2>
-            </Grid>
-            <TextField
-              style={textfield}
-              id="outlined-textarea-email"
-              required
-              label="Email"
-              // placeholder="e.g. elon@gmail.com"
-              onChange={userEmailChangeHandler}
-              value={userEmail}
-            />
-            <FormControl fullWidth variant="outlined" style={passStyle}>
-              <InputLabel htmlFor="outlined-adornment-password">
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={showPassword ? "text" : "password"}
-                onChange={passwordChangeHandler}
-                value={password}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
+    <div className={classes.bg}>
+      <div className={classes.signUp}>
+        <div className={classes.grid}>
+          <Grid>
+            <Paper elevation={20} style={paperStyle}>
+              <Grid align="center">
+                <Avatar style={avatarStyle}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <h2>Sign Up</h2>
+              </Grid>
+              <TextField
+                style={textfield}
+                id="outlined-textarea-email"
                 required
+                label="Email"
+                // placeholder="e.g. elon@gmail.com"
+                onChange={userEmailChangeHandler}
+                value={userEmail}
               />
-            </FormControl>
-            <Button
-              type="submit"
-              color="primary"
-              variant="contained"
-              fullWidth
-              style={btnStyle}
-              onClick={signUpButtonClickHandler}
-            >
-              SignUp
-            </Button>
-            <Typography fullWidth>
-              Already have an account ?
-              <Button onClick={toSignIn}>Sign In</Button>
-            </Typography>
-          </Paper>
-        </Grid>
-      </div>
-      <div className={classes.image}>
-        <img
-          src="https://github.com/RahulRajak525/Images/blob/main/signUp.jpg?raw=true"
-          width="100%"
-          alt="signUp.jpg"
-        />
+              <FormControl fullWidth variant="outlined" style={passStyle}>
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? "text" : "password"}
+                  onChange={passwordChangeHandler}
+                  value={password}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                  required
+                />
+              </FormControl>
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                fullWidth
+                style={btnStyle}
+                onClick={signUpButtonClickHandler}
+              >
+                SignUp
+              </Button>
+              <Typography fullWidth>
+                Already have an account ?
+                <Button onClick={toSignIn}>Sign In</Button>
+              </Typography>
+            </Paper>
+          </Grid>
+        </div>
       </div>
     </div>
   );

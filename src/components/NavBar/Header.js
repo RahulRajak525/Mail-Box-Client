@@ -9,7 +9,10 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AppsIcon from "@mui/icons-material/Apps";
 import TuneIcon from "@mui/icons-material/Tune";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Header = () => {
+  const userDetails = useSelector((state) => state.user.userDetails);
+
   return (
     <div className={classes.header}>
       <div className={classes.header_left}>
@@ -46,11 +49,15 @@ const Header = () => {
         <AppsIcon>
           <HelpOutlineIcon />
         </AppsIcon>
-        <Avatar
-          alt="Rahul Rajak"
-          src="https://github.com/RahulRajak525/Images/blob/main/newImageRk.jpg?raw=true"
-        />
-        <Link to="/" >Home</Link>
+        {userDetails && (
+          <Avatar
+            alt="Rahul Rajak"
+            // src="https://github.com/RahulRajak525/Images/blob/main/newImageRk.jpg?raw=true"
+            src={userDetails.photoUrl}
+          />
+        )}
+
+        <Link to="/">Home</Link>
       </div>
     </div>
   );

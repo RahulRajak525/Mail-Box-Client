@@ -19,26 +19,23 @@ import { useDispatch, useSelector } from "react-redux";
 import classes from "./SignIn.module.css";
 
 import { toast } from "react-toastify";
-import Footer from "../NavBar/Footer";
 import { getUserDataAction, signInAction } from "../Reducer/asyncUserReducer";
-import {
-  getEmailAction,
-  getEmailDataAction,
-} from "../Reducer/asyncEmailReducer";
+import { getEmailDataAction } from "../Reducer/asyncEmailReducer";
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userDetails = useSelector((state) => state.user.userDetails);
 
   const paperStyle = {
-    padding: 20,
+    padding: "20px",
     margin: "20px auto",
-    width: "350px",
+    maxWidth: "350px",
   };
+  
   const avatarStyle = { backgroundColor: "#06cd83" };
   const passStyle = { margin: "10px auto " };
   const btnStyle = { margin: "8px 0 " };
-  const textfield = { width: "100%" };
+  const textfield = { width: "100%", marginTop:"20px" };
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -73,7 +70,6 @@ const SignIn = () => {
       );
       setTimeout(() => {
         const senderEmail = localStorage.getItem("email");
-        console.log("getuserdata called");
         dispatch(getUserDataAction());
         dispatch(getEmailDataAction(senderEmail));
       }, 800);
@@ -87,11 +83,11 @@ const SignIn = () => {
       } else {
         return;
       }
-    }, 1000);
+    }, 1100);
   };
 
   return (
-    <div className={classes.signIn}>
+    <div className={classes.body}>
       <div className={classes.grid}>
         <Grid>
           <Paper elevation={20} style={paperStyle}>
@@ -153,15 +149,9 @@ const SignIn = () => {
               <Button onClick={toSignUp}>Sign up </Button>
             </Typography>
           </Paper>
-        </Grid>{" "}
+        </Grid>
       </div>
-      <div className={classes.image}>
-        <img
-          src="https://github.com/RahulRajak525/Images/blob/main/1.jpg?raw=true"
-          alt="Rahul Rajak"
-          width="100%"
-        />
-      </div>
+   
     </div>
   );
 };

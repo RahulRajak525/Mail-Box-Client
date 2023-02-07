@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import {
   getUserDataAction,
+  resetPasswordAction,
   signInAction,
   signUpAction,
   updateProfileaction,
@@ -10,34 +11,31 @@ import {
 const initialState = {
   userDetails: undefined,
   isLoggedIn: false,
-  isComposed : false,
+  isComposed: false,
 };
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     logOut(state, action) {
-      localStorage.removeItem("idToken");
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("localId");
+      localStorage.clear();
       state.userDetails = "";
     },
-    MessageBoxOpen(state,action){
+    MessageBoxOpen(state, action) {
       state.isComposed = true;
     },
-    MessageBoxClose(state,action){
+    MessageBoxClose(state, action) {
       state.isComposed = false;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signUpAction.fulfilled, (state, action) => {
       state.userDetails = action.payload;
-      console.log(action.payload);
     });
     builder.addCase(signInAction.fulfilled, (state, action) => {
       localStorage.setItem("localId", action.payload.localId);
       localStorage.setItem("idToken", action.payload.idToken);
-      localStorage.setItem("email",action.payload.email)
+      localStorage.setItem("email", action.payload.email);
       localStorage.setItem("isLoggedIn", "true");
       state.userDetails = action.payload;
       state.isLoggedIn = true;
@@ -47,7 +45,9 @@ const userSlice = createSlice({
     });
     builder.addCase(getUserDataAction.fulfilled, (state, action) => {
       state.userDetails = action.payload;
-      console.log(state.userDetails)
+      state.isLoggedIn = true;
+    });
+    builder.addCase(resetPasswordAction.fulfilled, (state, action) => {
       state.isLoggedIn = true;
     });
   },
